@@ -1,30 +1,16 @@
 import { useAppSelector } from 'app/hooks';
 import { RootState } from 'app/store';
-import { updateCurrentOptionAction } from 'features/menu/menuSlice';
 import React from 'react';
+import MenuImage from './MenuImage';
+import styles from './styles.module.scss';
 const Menu: React.FC<any> = () => {
     const currentOption = useAppSelector((state: RootState) => state.menu.currentOption)
-    console.log('current Option in Menu', currentOption)
-    return <>
-    Select Image
+    const thisImageSrc = "https://konvajs.org/assets/lion.png";
+    return <div className={styles.container}>
+      Select Image
       <br />
-      <img
-        alt="lion"
-        src="https://konvajs.org/assets/lion.png"
-        // draggable="true"
-        onClick={(e) => {
-            console.log('click')
-            updateCurrentOptionAction({
-                name: 'lion',
-                type: 'image',
-                src: (e.target as any).src
-            });
-        }}
-        // onDragStart={(e) => {
-        //   dragUrl.current = (e.target as any).src;
-        // }}
-      />
-    </>
+      <MenuImage isSelected={thisImageSrc === currentOption?.src} src={thisImageSrc}  />
+    </div>
 }
 
 export default Menu;
